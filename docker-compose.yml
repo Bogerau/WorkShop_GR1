@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: Vital-IA_php
+    volumes:
+      - .:/var/www/html
+    networks:
+      - symfony-network
+
+  nginx:
+    image: nginx:latest
+    container_name: Vital-IA_nginx
+    ports:
+      - "8081:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php
+    networks:
+      - symfony-network
+
+  db:
+    image: mysql:8.0
+    container_name: Vital-IA_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfonymdp
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - symfony-network
+    ports:
+      - "3306:3306"
+
+networks:
+  symfony-network:
+    driver: bridge
+
+volumes:
+  db_data:
