@@ -1,8 +1,22 @@
-{% extends 'front/header.html.twig' %}
+{% include 'front/header.html.twig' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('index.scss') }}
+{% endblock %}
 
 {% block body %}
-    <h1>{{ title }}</h1>
-    <p style="color: red">Bienvenue sur la page d'accueil de notre site web.</p>
+    <div class="main-content">
+        <h1>Chez Vital'IA, nous avons un objectif simple : vous guider rapidement vers le bon professionnel de santé grâce à la puissance de l'intelligence
+            artificielle. Trop souvent, les urgences hospitalières sont sollicitées pour des cas qui pourraient être pris en charge par un spécialiste
+            en dehors de l'hôpital.
+        </h1>
+        <h1>
+            Avec Vital'IA, en quelques clics, vous obtenez une évaluation rapide de vos symptômes et des recommandations personnalisées.
+            Que ce soit pour consulter un généraliste, un spécialiste, ou envisager une visite aux urgences, notre IA est là pour vous orienter
+            vers les soins appropriés.
+        </h1>
+        <h1>
+            Ensemble, désengorgeons les urgences tout en garantissant une prise en charge rapide et efficace.
+        </h1>
+    </div>
 {% endblock %}

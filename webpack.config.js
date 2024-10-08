@@ -6,6 +6,7 @@ Encore
 
     .addStyleEntry('css/app', './assets/styles/app.css')
     .addStyleEntry('header.scss', './assets/styles/header.scss')
+    .addStyleEntry('index.scss', './assets/styles/index.scss')
 
     .enableSingleRuntimeChunk()
 
