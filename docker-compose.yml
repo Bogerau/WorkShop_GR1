@@ -5,15 +5,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: Vital-IA_php
+    container_name: symfony_php
     volumes:
       - .:/var/www/html
     networks:
       - symfony-network
+    environment:
+      APP_ENV: dev
 
   nginx:
     image: nginx:latest
-    container_name: Vital-IA_nginx
+    container_name: symfony_nginx
     ports:
       - "8081:80"
     volumes:
@@ -26,7 +28,7 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: Vital-IA_db
+    container_name: symfony_db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: symfony
@@ -36,8 +38,16 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - symfony-network
-    ports:
-      - "3306:3306"
+
+  webpack:
+    image: node:18-alpine
+    container_name: symfony_webpack
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    command: npm run watch
+    networks:
+      - symfony-network
 
 networks:
   symfony-network:

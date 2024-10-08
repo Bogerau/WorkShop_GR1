@@ -1,0 +1,16 @@
+{% block stylesheets %}
+    {{ encore_entry_link_tags('header.scss') }}
+{% endblock %}
+
+<header>
+    <nav>
+        <ul>
+            <li class="logo"><a href="#"><img src="/build/images/logo_transparent.png" alt="logo"></a></li>
+            <li><a href="{{ path('homepage') }}">Accueil</a></li>
+            <li><a href="#">Diagnostic</a></li>
+            <li><a href="#">Qui sommes nous ?</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+

@@ -1,30 +1,42 @@
-# Dockerfile
+# Étape 1 : Construction de l'image PHP avec Symfony
 FROM php:8.2-fpm
 
-# Installer les dépendances nécessaires
+# Installer les dépendances PHP
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     libicu-dev \
     libzip-dev \
     libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
-    && docker-php-ext-install intl pdo pdo_mysql zip gd
+    && docker-php-ext-install intl opcache pdo pdo_mysql zip gd
 
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copier les fichiers du projet dans le conteneur
+# Installer Node.js et npm
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
+
+# Créer le répertoire de l'application
 WORKDIR /var/www/html
+
+# Copier les fichiers du projet
 COPY . .
 
-# Installer les dépendances PHP du projet
-RUN composer install
+# Installer les dépendances PHP
+RUN composer install --no-scripts --no-interaction --optimize-autoloader
 
-# Donner les droits à l'utilisateur www-data
-RUN chown -R www-data:www-data /var/www/html
+# Installer les dépendances npm
+RUN npm install
 
-# Exposer le port 9000 pour PHP-FPM
+# Compiler les assets avec Webpack Encore
+RUN chown -R www-data:www-data /var/www/html/public/build
+RUN npm run build
+
+# Exposer le port de l'application
 EXPOSE 9000
+
+CMD ["php-fpm"]

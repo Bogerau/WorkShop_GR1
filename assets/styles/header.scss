@@ -1,0 +1,38 @@
+header {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #002d4f;
+}
+
+header nav {
+  padding: 5rem;
+  display: flex;
+  justify-content: center; /* Centre les éléments horizontalement */
+  align-items: center; /* Centre les éléments verticalement */
+}
+
+header nav ul {
+  list-style-type: none;
+  display: flex; /* Met les éléments du ul sur une seule ligne */
+  justify-content: center; /* Centre les éléments horizontalement */
+  align-items: center; /* Centre les éléments verticalement */
+  gap: 40px; /* Espace entre les éléments */
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  display: flex;
+  align-items: center; /* Centre chaque élément verticalement */
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px; /* Ajustez la taille de la police si nécessaire */
+}
+
+header nav ul li.logo img {
+  width: 150px; /* Taille du logo */
+}
